@@ -1,5 +1,4 @@
-import argparse
-import io
+import argparse, io
 
 class SrtScripter():
     """
@@ -26,8 +25,8 @@ class SrtScripter():
             help="Name of the .rad file where the script with write the measured data.")
         self.parser.add_argument("-f", "--freq", type=int, default=1420,
             help="Center frequency for calibration and measurements.")
-        self.parser.add_argument("-m", "--mode", type=int, default=1,
-            help="Receptor mode.") #TODO add mode explanations, add mode limits
+        self.parser.add_argument("-m", "--mode", type=int, default=1, choices=range(1,5),
+            help="Receptor mode.") #TODO add mode explanations
         self.parser.add_argument("-ca", "--cal_az", type=float, default=200,
             help="Azimuth position for calibration.")
         self.parser.add_argument("-ce", "--cal_el", type=float, default=30,
@@ -45,6 +44,9 @@ class SrtScripter():
 
     def write_noisecal(self):
         self.script.write(u': noisecal\n')
+
+    def write_delay(self, delay):
+        self.script.write(u':' + str(delay) + '\n')
 
     def write_azel(self, az, el, delay=0):
         delay = self.blank_zero_delay(delay)

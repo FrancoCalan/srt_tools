@@ -19,14 +19,20 @@ class BeamwidthScripter(SrtScripter):
         self.parser.add_argument("-w", "--width", type=float, default=15,
             help="Half width of the beamwidth measurement.")
         self.parser.add_argument("-da", "--dang", type=float, default=1,
-            help="Angle step of the measurements.")
+            help="Angle step between measurements.")
         self.parser.add_argument("-d", "--delay", type=float, default=11,
-            help="Time delay between every measurement.")
+            help="Time delay between for every measurement.")
 
     def write_beamwidth(self):
+        """
+        Make consecutive measurements around a source either in the azimuth 
+        or elevation direction, and record the data in a .rad file.
+        """
+        angarr = range(-self.args.width, self.args.width + self.args.dang, self.args.dang)
+
         self.write_source(self.args.source)
         self.write_record()
-        for ang in range(-self.args.width, self.args.width + self.args.dang, self.args.dang):
+        for ang in angarr:
             if self.args.axis == "az":
                 self.write_offset(ang, 0, self.args.delay)
             elif self.args.axis == "el":
@@ -34,7 +40,6 @@ class BeamwidthScripter(SrtScripter):
         self.write_roff()
 
 s = BeamwidthScripter()
-s.write_record()
 s.write_calibration()
 s.write_beamwidth()
 s.write_stow()
