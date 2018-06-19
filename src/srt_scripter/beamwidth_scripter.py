@@ -11,6 +11,9 @@ class BeamwidthScripter(SrtScripter):
         """
         Add arguments for beamwidth test.
         """
+        self.parser.description = "Generates a .cmd script for performing beamwidth tests.\
+            The script makes consecutive measurements around a source either in the azimuth\
+            or elevation direction, and record the data in a .rad file."
         SrtScripter.add_parser_arguments(self)
         self.parser.add_argument("-s", "--source", type=str, default="Sun",
             help="Source for the beamwidth.")
@@ -25,8 +28,7 @@ class BeamwidthScripter(SrtScripter):
 
     def write_beamwidth(self):
         """
-        Make consecutive measurements around a source either in the azimuth 
-        or elevation direction, and record the data in a .rad file.
+        Write the commands for a beamwidth test.
         """
         angarr = range(-self.args.width, self.args.width + self.args.dang, self.args.dang)
 

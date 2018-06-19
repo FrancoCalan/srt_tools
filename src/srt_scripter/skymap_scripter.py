@@ -12,6 +12,8 @@ class SkymapScripter(SrtScripter):
         """
         Add arguments for skymap test.
         """
+        self.parser.description = "Generates a .cmd script for performing skymap test.\
+            The script makes a full or partial scan of the sky to create a skymap."
         SrtScripter.add_parser_arguments(self)
         self.parser.add_argument("--az1", type=float, default=190,
             help="Initial azimuth angle.")
@@ -30,7 +32,7 @@ class SkymapScripter(SrtScripter):
         
     def write_skymap(self):
         """
-        Make a full or partial scan of the sky to create a skymap.
+        Write the commands for a skymap test.
         """
         if self.args.az1 <= self.args.az2:
             azarr = range(self.args.az1, self.args.az2, self.args.da)

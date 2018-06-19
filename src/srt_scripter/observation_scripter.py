@@ -11,6 +11,9 @@ class ObservationScripter(SrtScripter):
         """
         Add arguments for observation test.
         """
+        self.parser.description = "Generates a .cmd script for performing source obervations.\
+            The script moves the telescope to a source and make an observation for a defined \
+            period of time."
         SrtScripter.add_parser_arguments(self)
         self.parser.add_argument("-s", "--source", type=str, default="Sun",
             help="Source for the observation.")
@@ -19,8 +22,7 @@ class ObservationScripter(SrtScripter):
         
     def write_observation(self):
         """
-        Move the telescope to a source and make an observation for a defined period
-        of time.
+        Write the commands for a source observation.
         """
         self.write_source(self.args.source)
         self.write_record()

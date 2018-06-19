@@ -2,7 +2,8 @@ import argparse, io
 
 class SrtScripter():
     """
-    Generic SRT scripter with common functions for SRT operation.
+    Generic scripter for the creation of .cmd script files to
+    automatically control the SRTs.
     """
     def __init__(self):
         self.parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -26,7 +27,7 @@ class SrtScripter():
         self.parser.add_argument("-f", "--freq", type=int, default=1420,
             help="Center frequency for calibration and measurements.")
         self.parser.add_argument("-m", "--mode", type=int, default=1, choices=range(1,5),
-            help="Receptor mode.") #TODO add mode explanations
+            help="Receptor mode. Mode 1: default bandwidth 500kHz, Mode 2: bw=250kHz, Mode 3: bw=125kHz, Mode 4: bw=3x500kHz, Mode 5: scanmode")
         self.parser.add_argument("-ca", "--cal_az", type=float, default=200,
             help="Azimuth position for calibration.")
         self.parser.add_argument("-ce", "--cal_el", type=float, default=30,
