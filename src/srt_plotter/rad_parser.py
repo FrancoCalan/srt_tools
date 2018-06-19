@@ -1,4 +1,7 @@
-import datetime
+from datetime import datetime
+from srt_data import SrtData
+from command import Command
+from spectrum import Spectrum
 
 class rad_parser():
     """
@@ -43,20 +46,22 @@ class rad_parser():
             else:
                 raise Exception("Unidentified line:\n" + line)
 
+        radfile.close()
+
     def get_station_info(self, line):
         """
         Extract station coordinates information from line.
         """
         line_split = line.split()
-        self.station_lat = toFloat(line_split[3])
-        self.station_longw = toFloat(line_split[6])
+        self.station_lat = to_float(line_split[3])
+        self.station_longw = to_float(line_split[6])
 
     def get_tsys_info(self, line):
         """
         Extract the system temperature measured from line.
         """
         line_split = line.split()
-        self.tsys = toFloat(line_split[2])
+        self.tsys = to_float(line_split[2])
 
     def get_command_info(self, line):
         """
@@ -97,7 +102,7 @@ def is_spectrum(line):
     spec_datetime = line.split()[0]
     try:    
         datetime.strptime(spec_datetime, '%Y:%j:%H:%M:%S')
-    except:
+    except ValueError:
         return False
     return True
 
@@ -105,7 +110,7 @@ def is_error(line):
     return line.split()[1] is "ERROR"
 
 # others
-def toFloat(string):
+def to_float(string):
     """
     Convert a string that uses comma (,) as a decimal separator
     to a float. 
