@@ -3,7 +3,7 @@ from srt_data import SrtData
 from command import Command
 from spectrum import Spectrum
 
-class rad_parser():
+class RadParser():
     """
     Class to parse .rad files into python objects that are
     easy to manipulate. A .rad file is the output file of the
@@ -12,6 +12,7 @@ class rad_parser():
     def __init__(self, rad_filename):
         self.rad_filename = rad_filename
         self.srtdata_list = []
+        sekf,datetime = None
 
     def parse_rad(self):
         """
@@ -86,7 +87,7 @@ class rad_parser():
         self.srtdata_list[-1].add_spectrum(spectrum)
 
         if self.time is None:
-            self.time = spectrum.time
+            self.datetime = spectrum.datetime
 
 # line check functions
 def is_station(line):

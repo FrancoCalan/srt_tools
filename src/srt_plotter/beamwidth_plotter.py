@@ -1,52 +1,41 @@
-import argparse
-import numpy as np
-import matplotlib.pyplot as plt
-from rad_parser import RadParser
+from plotter import Plotter
 
 class BeamwidthPlotter(Plotter):
-    def __init__(self, dataset, axis="az"):
-        self.parser = argparse.ArgumentParser(description="Plot a .rad file assuming is a beamwidth measurement.")
-        self.parser.add_argument(type=str, dest="rad_file", default="000000.rad", 
-            help=".rad file to plot")
-        self.parser.add_argument("-a", "--axis", type=str, dest="axis", default="auto", 
-            help="measured axis (az, el), or 'auto' to automatically detect the axis.")
-        self.args = parser.parse_args()
-        
-        self.radparser = RadParser(args.rad_file)
-        self.srtdata_list = self.radparser.srtdata_list
-        self.offset, self.avg_power = self.get_beamwidth_data()
-
-    def get_beamwidth_data(self, dataset):
-        bw_data_list = filter(is_offset, dataset.data_list)
-        
-        if self.axis == "az":
-            offset = [srt_data.sample_list[0].az_offset for srt_data in bw_data_list]
-        elif self.axis == "el":
-            offset = [srt_data.sample_list[0].el_offset for srt_data in bw_data_list]
-        
-        avg_power = []
-        for srt_data in bw_data_list:
-            specs_power = [np.sum(sample.spec) for sample in srt_data.sample_list]
-            avg_power.append(np.mean(specs_power))
-        
-        return offset, avg_power
+    """
+    Class for plotting SRT beamwidths from a beamwidth test.
+    """
+    def add_description(self):
+        """
+        Add description to argument parser.
+        """
+        self.argparser.description = "Plot a .rad file assuming is from a beamwidth test.\
+            It deduces in which axis (az, el) the test was performed."
     
     def plot_beamwidth(self):
-        plt.plot(self.offset, self.avg_power, lw=2)
-        plt.title("Beamwidth for " + self.dataset.source + " (" + self.axis + ")\n" +
-           "freq: " + str(self.dataset.freq) + "MHz " + self.datetime)
-        plt.xlabel("Offset [deg]")
-        plt.ylabel("Temperature [K]")
+        """
+        Plots beamwidth data from the srtdata list.
+        """
+        source, axis, offset, avg_power = self.get_beamwidth_data()
+        plt.plot(offset, avg_power, lw=2)
+        plt.title('Beamwidth for ' + source + ' (' + axis + ')\n' +
+           'freq: ' + str(self.freq) + 'MHz ' + self.datetime)
+        plt.xlabel('Offset [deg]')
+        plt.ylabel('Temperature [K]')
         plt.grid(True)
         plt.show()
 
-def is_offset(data):
-    """
-    True if the srt_data was produced by a offset command with 0 delay.
-    """
-    return data.instruction.delay != 0 and data.instruction.command == "offset"
+    def gen_beamwidth_data(self):
+        """
+        Generates beamwidth data from the srtdata list generated from the parser.
+        It includes the source with which the beamwidth was computed, the axis in 
+        Which the test was performed, and the offset and the average power to plot.
+        """
+        source = self.get_source()
+        axis = self.get_axis()
+        
+        return offset, avg_power
 
-from SRT_dataset import SRTDataset
-sd = SRTDataset(args.input_file)
-bp = BeamwidthPlotter(sd, axis=args.axis)
-bp.plot_beamwidth()
+    def get_axis(self):
+        """
+        Get the axis in which the beamwidth test was performed from the srtdata list.
+        """

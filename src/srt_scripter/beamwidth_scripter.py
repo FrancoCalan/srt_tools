@@ -11,19 +11,19 @@ class BeamwidthScripter(SrtScripter):
         """
         Add arguments for beamwidth test.
         """
-        self.parser.description = "Generates a .cmd script for performing beamwidth tests.\
+        self.argparser.description = "Generates a .cmd script for performing beamwidth tests.\
             The script makes consecutive measurements around a source either in the azimuth\
             or elevation direction, and record the data in a .rad file."
         SrtScripter.add_parser_arguments(self)
-        self.parser.add_argument("-s", "--source", type=str, default="Sun",
+        self.argparser.add_argument("-s", "--source", type=str, default="Sun",
             help="Source for the beamwidth.")
-        self.parser.add_argument("-a", "--axis", type=str, default="az",
+        self.argparser.add_argument("-a", "--axis", type=str, default="az",
             help="Axis of the beamwidth measurement. Either is in azimuth (az) or elevation (el).")
-        self.parser.add_argument("-w", "--width", type=float, default=15,
+        self.argparser.add_argument("-w", "--width", type=float, default=15,
             help="Half width of the beamwidth measurement.")
-        self.parser.add_argument("-da", "--dang", type=float, default=1,
+        self.argparser.add_argument("-da", "--dang", type=float, default=1,
             help="Angle step between measurements.")
-        self.parser.add_argument("-d", "--delay", type=float, default=11,
+        self.argparser.add_argument("-d", "--delay", type=float, default=11,
             help="Time delay between for every measurement.")
 
     def write_beamwidth(self):

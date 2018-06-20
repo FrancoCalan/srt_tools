@@ -7,7 +7,7 @@ class Spectrum():
         # replace decimal separator from , to . and split the line into a list
         line_split = line.replace(',', '.').split()
 
-        self.time       = line_split[0]        # %Y:%j:%H:%M:%S format
+        self.datetime   = line_split[0]        # %Y:%j:%H:%M:%S format
         self.az         = float(line_split[1]) # degrees
         self.el         = float(line_split[2]) # degrees
         self.az_offset  = float(line_split[3]) # degrees

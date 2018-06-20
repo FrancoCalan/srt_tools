@@ -12,22 +12,22 @@ class SkymapScripter(SrtScripter):
         """
         Add arguments for skymap test.
         """
-        self.parser.description = "Generates a .cmd script for performing skymap test.\
+        self.argparser.description = "Generates a .cmd script for performing skymap test.\
             The script makes a full or partial scan of the sky to create a skymap."
         SrtScripter.add_parser_arguments(self)
-        self.parser.add_argument("--az1", type=float, default=190,
+        self.argparser.add_argument("--az1", type=float, default=190,
             help="Initial azimuth angle.")
-        self.parser.add_argument("--az2", type=float, default=170,
+        self.argparser.add_argument("--az2", type=float, default=170,
             help="Final azimuth angle.")
-        self.parser.add_argument("--da", type=float, default=5,
+        self.argparser.add_argument("--da", type=float, default=5,
             help="Azimuth angle step between measurements.")
-        self.parser.add_argument("--el1", type=float, default=2,
+        self.argparser.add_argument("--el1", type=float, default=2,
             help="Initial elevation angle.")
-        self.parser.add_argument("--el2", type=float, default=88,
+        self.argparser.add_argument("--el2", type=float, default=88,
             help="Final elevation angle.")
-        self.parser.add_argument("--de", type=float, default=5,
+        self.argparser.add_argument("--de", type=float, default=5,
             help="Elevation angle step between measurements.")
-        self.parser.add_argument("-d", "--delay", type=float, default=11,
+        self.argparser.add_argument("-d", "--delay", type=float, default=11,
             help="Time delay of the observation.")
         
     def write_skymap(self):
