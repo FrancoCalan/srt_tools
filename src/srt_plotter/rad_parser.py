@@ -12,7 +12,8 @@ class RadParser():
     def __init__(self, rad_filename):
         self.rad_filename = rad_filename
         self.srtdata_list = []
-        sekf,datetime = None
+        self.freq = 0
+        self.datetime = None
 
     def parse_rad(self):
         """
@@ -72,9 +73,9 @@ class RadParser():
         """
         command = Command(line)
         srtdata = SrtData(command)
-        self.append.srtdata_list(srtdata)
-
-        if command.key is "freq":
+        self.srtdata_list.append(srtdata)
+        
+        if command.key == "freq":
             self.freq = command.args[0]
         
     def get_spectrum_info(self, line):
@@ -86,18 +87,18 @@ class RadParser():
         spectrum = Spectrum(line)
         self.srtdata_list[-1].add_spectrum(spectrum)
 
-        if self.time is None:
+        if self.datetime is None:
             self.datetime = spectrum.datetime
 
 # line check functions
 def is_station(line):
-    return line.split()[1] is "STATION"
+    return line.split()[1] == "STATION"
 
 def is_tsys(line):
-    return line.split()[1] is "tsys"
+    return line.split()[1] == "tsys"
 
 def is_command(line):
-    return line[0] is '*' and line.split()[1][-5:] is '.cmd:'
+    return line[0] == '*' and line.split()[1][-5:] == '.cmd:'
 
 def is_spectrum(line):
     spec_datetime = line.split()[0]
@@ -108,7 +109,7 @@ def is_spectrum(line):
     return True
 
 def is_error(line):
-    return line.split()[1] is "ERROR"
+    return line.split()[1] == "ERROR"
 
 # others
 def to_float(string):
@@ -116,4 +117,4 @@ def to_float(string):
     Convert a string that uses comma (,) as a decimal separator
     to a float. 
     """
-    return float(string.replace(','.'.'))
+    return float(string.replace(',','.'))

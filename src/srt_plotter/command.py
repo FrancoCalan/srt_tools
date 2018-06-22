@@ -11,17 +11,15 @@ class Command():
         
         # get delay if present
         try:
-            self.delay = float(sline[4][1:])
+            self.delay = float(line_split[4][1:])
         except:
             self.delay = 0
         
         # get command if present
         try:
-            self.command = sline[5]
+            self.key = line_split[5]
         except:
-            self.command = None
+            self.key = None
 
         # get command args if present
-        self.command_args = []
-        for args in sline[6:]:
-            self.command_args.append(args)
+        self.args = line_split[6:]
