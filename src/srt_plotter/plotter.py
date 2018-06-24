@@ -21,6 +21,10 @@ class Plotter():
         self.freq = self.radparser.freq
         self.datetime = self.radparser.datetime
 
+        self.sources_list = ['Crab', 'Orion', 'Cass', 'Sun', 'SgrA', 'Rosett',
+            'M17', 'CygEMN', 'Moon', 'G90', 'G180', 'GNpole', 'Androm',
+            'AC1', 'PULSAR', 'PS', 'RC_CLOUD', 'S9', 'S8', 'S7', 'S6']
+
     def get_source(self):
         """
         Get the source in which a test was performed for source-based
@@ -28,28 +32,7 @@ class Plotter():
         """
         for srtdata in self.srtdata_list:
             command_key = srtdata.command.key
-            if command_key in sources_list:
+            if command_key in self.sources_list:
                 return command_key
 
-sources_list = [
-    'Crab',
-    'Orion',
-    'Cass',
-    'Sun',
-    'SgrA',
-    'Rosett',
-    'M17',
-    'CygEMN',
-    'Moon',
-    'G90',
-    'G180',
-    'GNpole',
-    'Androm',
-    'AC1',
-    'PULSAR',
-    'PS',
-    'RC_CLOUD',
-    'S9',
-    'S8',
-    'S7',
-    'S6']
+

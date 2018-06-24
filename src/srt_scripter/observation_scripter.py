@@ -24,9 +24,8 @@ class ObservationScripter(SrtScripter):
         """
         Write the commands for a source observation.
         """
-        self.write_source(self.args.source)
         self.write_record()
-        self.write_delay(self.args.delay)
+        self.write_source(self.args.source, self.args.delay)
         self.write_roff()
 
 s = ObservationScripter()

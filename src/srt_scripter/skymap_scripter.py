@@ -32,7 +32,12 @@ class SkymapScripter(SrtScripter):
         
     def write_skymap(self):
         """
-        Write the commands for a skymap test.
+        Write the commands for a skymap test. The test is hardcoded to start from
+        the bottom left corner of the area to scan, that is, the point (az1, el1)
+        is the bottom left corner and, (az2, el2) the upper right corner. It is 
+        also harcoded that the SRT travel elevation first and azimuth second. It 
+        is required that el2 > el1, but not that az1 > az2, as azimuth angles can
+        wrap around.
         """
         if self.args.az1 <= self.args.az2:
             azarr = range(self.args.az1, self.args.az2, self.args.da)
