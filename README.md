@@ -1,2 +1,2 @@
-# srt_tools2
-Tools for script creation and data postprocessing for the MIT Small Radio Telescope (SRT)
+# srt_tools
+Tools for script creation and data plotting for the MIT Small Radio Telescope (SRT)
