@@ -29,25 +29,14 @@ class SkymapPlotter(Plotter):
         plt.xlabel('Azimuth [deg]')
         plt.ylabel('Elevation [deg]')
 
-        xticks_idxs = np.arange(0, len(az), 2)
-        yticks_idxs = np.arange(0, len(el), 2)+1
-        plt.xticks(xticks_idxs)
-        plt.yticks(yticks_idxs)
-        
-        # HACK: harcoded axis ticks and labels in roder to match the ones form the SRT software
-        xticks_labels = [item.get_text() for item in plt.gca().get_xticklabels()]
-        for i, idx in enumerate(xticks_idxs):
-            if i%2==1:
-                xticks_labels[i] = int(az[idx])
-            else:
-                xticks_labels[i] = ''
-        plt.gca().set_xticklabels(xticks_labels)
-
-        yticks_labels = [item.get_text() for item in plt.gca().get_yticklabels()]
-        for i, idx in enumerate(yticks_idxs):
-            yticks_labels[i] = int(np.flipud(el)[idx])
-        plt.gca().set_yticklabels(yticks_labels)
-        # HACK ends
+        # Set ticks labels according az and el values. 
+        # Harcoded ticks separation.
+        dxticks = 5
+        dyticks = 2
+        plt.xticks(np.arange(0, len(az), dxticks))
+        plt.yticks(np.arange(0, len(el), dyticks)+dyticks-1) # add offset to ticks to make them start at the lowest elevation
+        plt.gca().set_xticklabels(az[::dxticks])
+        plt.gca().set_yticklabels(np.flipud(el[::dyticks])) # reverse labels to match plot orientation
 
         plt.show()
 
