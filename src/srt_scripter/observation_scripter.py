@@ -27,9 +27,3 @@ class ObservationScripter(SrtScripter):
         self.write_record()
         self.write_source(self.args.source, self.args.delay)
         self.write_roff()
-
-s = ObservationScripter()
-s.write_calibration()
-s.write_observation()
-s.write_stow()
-s.close()

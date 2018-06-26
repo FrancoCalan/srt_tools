@@ -40,9 +40,3 @@ class BeamwidthScripter(SrtScripter):
             elif self.args.axis == "el":
                 self.write_offset(0, ang, self.args.delay)
         self.write_roff()
-
-s = BeamwidthScripter()
-s.write_calibration()
-s.write_beamwidth()
-s.write_stow()
-s.close()

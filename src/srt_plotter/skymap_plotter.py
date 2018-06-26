@@ -83,6 +83,9 @@ class SkymapPlotter(Plotter):
             if float(smdata.command.args[1]) not in el: # args[1] = el angle
                 el.append(float(smdata.command.args[1]))
 
+        if not az or not el: # check if either az or el list are empty
+            raise Exception('Unable to find skymap data on file.')
+
         return np.array(az), np.array(el)
 
     def is_skymap(self, srtdata):
@@ -91,6 +94,3 @@ class SkymapPlotter(Plotter):
         (as used for the skymap test). 
         """
         return srtdata.command.delay != 0 and srtdata.command.key == 'azel'
-
-sp = SkymapPlotter()
-sp.plot_skymap()

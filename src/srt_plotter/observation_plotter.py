@@ -10,7 +10,10 @@ class ObservationPlotter(Plotter):
         Plotter.__init__(self)
         
         # get the first (and only) observation data
-        self.obsdata = filter(self.is_observation, self.srtdata_list)[0]
+        try:
+            self.obsdata = filter(self.is_observation, self.srtdata_list)[0]
+        except IndexError:
+            raise Exception('Unable to find observation data from file.')
 
     def add_description(self):
         """
@@ -68,6 +71,3 @@ class ObservationPlotter(Plotter):
         (as used for SRT observations). 
         """
         return srtdata.command.delay != 0 and srtdata.command.key in self.sources_list
-      
-op = ObservationPlotter()
-op.plot_observation()

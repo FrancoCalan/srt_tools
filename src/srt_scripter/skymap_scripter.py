@@ -52,9 +52,3 @@ class SkymapScripter(SrtScripter):
                 self.write_azel(az, el, self.args.delay)
             elarr.reverse() # reverse elarr after elevetion loop for efficient trajectory
         self.write_roff()
-
-s = SkymapScripter()
-s.write_calibration()
-s.write_skymap()
-s.write_stow()
-s.close()

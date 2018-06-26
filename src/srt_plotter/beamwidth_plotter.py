@@ -69,7 +69,7 @@ class BeamwidthPlotter(Plotter):
         elif el_offset != len(el_offset) * [0]:
             return 'el', el_offset
         else:
-            raise('Unable to detect the axis of the beamwith test.')
+            raise Exception('Unable to detect the axis of the beamwidth test.')
 
 
     def is_beamwidth(self, srtdata):
@@ -78,6 +78,3 @@ class BeamwidthPlotter(Plotter):
         (as used for the beamwidth test). 
         """
         return srtdata.command.delay != 0 and srtdata.command.key == 'offset'
-
-bp = BeamwidthPlotter()
-bp.plot_beamwidth()
