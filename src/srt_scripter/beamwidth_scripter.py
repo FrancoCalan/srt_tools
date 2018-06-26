@@ -1,3 +1,4 @@
+import numpy as np
 from srt_scripter import SrtScripter
 
 class BeamwidthScripter(SrtScripter):
@@ -30,7 +31,7 @@ class BeamwidthScripter(SrtScripter):
         """
         Write the commands for a beamwidth test.
         """
-        angarr = range(-self.args.width, self.args.width + self.args.dang, self.args.dang)
+        angarr = np.arange(-self.args.width, self.args.width + self.args.dang, self.args.dang)
 
         self.write_source(self.args.source)
         self.write_record()

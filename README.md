@@ -71,8 +71,8 @@ Scripters generate .cmd script files that the SRT software can read to run autom
 :11 azel 190 2
 :11 azel 190 7
 ...
-:11 azel 165 7
-:11 azel 165 2
+:11 azel 170 82
+:11 azel 170 87
 : roff
 : stow
 ```

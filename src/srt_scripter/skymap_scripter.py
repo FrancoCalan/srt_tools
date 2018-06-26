@@ -40,15 +40,15 @@ class SkymapScripter(SrtScripter):
         wrap around.
         """
         if self.args.az1 <= self.args.az2:
-            azarr = range(self.args.az1, self.args.az2, self.args.da)
+            azarr = np.arange(self.args.az1, self.args.az2+1, self.args.da)
         else: # if az1 > az2 wrap around the angles at 360 deg
-            azarr = np.mod(range(self.args.az1, self.args.az2+360, self.args.da), 360)
+            azarr = np.mod(np.arange(self.args.az1, self.args.az2+361, self.args.da), 360)
             
-        elarr = range(self.args.el1, self.args.el2, self.args.de)
+        elarr = np.arange(self.args.el1, self.args.el2+1, self.args.de)
 
         self.write_record()
         for az in azarr:
             for el in elarr:
                 self.write_azel(az, el, self.args.delay)
-            elarr.reverse() # reverse elarr after elevetion loop for efficient trajectory
+            elarr = np.flipud(elarr) # reverse elarr after elevetion loop for efficient trajectory
         self.write_roff()
